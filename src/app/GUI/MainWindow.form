@@ -38,7 +38,7 @@
             </constraints>
             <properties>
               <maximum value="1000"/>
-              <minimum value="50"/>
+              <minimum value="100"/>
               <value value="750"/>
             </properties>
           </component>

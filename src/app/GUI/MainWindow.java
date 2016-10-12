@@ -21,7 +21,8 @@ public class MainWindow extends JFrame {
         this.game = game;
         setContentPane(content_panel);
 
-        update_timer = new Timer(400, e -> UpdateCanvas());
+        update_timer = new Timer(slider_speed.getModel().getMaximum() - slider_speed.getModel().getValue(),
+                e -> UpdateCanvas());
 
         createListeners();
 
@@ -96,10 +97,10 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        
+
         slider_speed.addChangeListener(e -> {
             JSlider source = (JSlider) e.getSource();
-            update_timer.setDelay(source.getValue());
+            update_timer.setDelay(source.getMaximum() - source.getValue());
         });
 
         canvas_panel.addComponentListener(new ComponentAdapter() {
