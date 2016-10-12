@@ -4,10 +4,7 @@ import app.logic.Game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private Game game;
@@ -16,6 +13,7 @@ public class MainWindow extends JFrame {
     private Canvas canvas;
     private JButton button_start;
     private JSlider slider_speed;
+    private JPanel canvas_panel;
 
     private Timer update_timer;
     private boolean game_started;
@@ -85,7 +83,7 @@ public class MainWindow extends JFrame {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(SwingUtilities.isLeftMouseButton(e)) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
                     super.mouseClicked(e);
                     int cell_width = canvas.getWidth() / game.getFieldWidth();
                     int cell_height = canvas.getHeight() / game.getFieldHeight();
@@ -103,8 +101,18 @@ public class MainWindow extends JFrame {
         });
 
         slider_speed.addChangeListener(e -> {
-            JSlider source = (JSlider)e.getSource();
+            JSlider source = (JSlider) e.getSource();
             update_timer.setDelay(source.getValue());
+        });
+
+        canvas_panel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                canvas.updatePreferredSize();
+
+                SwingUtilities.updateComponentTreeUI(e.getComponent());
+            }
         });
     }
 

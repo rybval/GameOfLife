@@ -7,18 +7,22 @@ import java.awt.*;
 
 public class Canvas extends JPanel {
     private Game game;
+    int cell_border;
 
     Canvas(Game game) {
         this.game = game;
 
     }
 
+    public void updatePreferredSize() {
+        int cell_width = this.getParent().getWidth() / game.getFieldWidth();
+        int cell_height = this.getParent().getHeight() / game.getFieldHeight();
+        cell_border = (cell_width > cell_height) ? (cell_height) : (cell_width);
+        this.setPreferredSize(new Dimension(cell_border * game.getFieldWidth(), cell_border * game.getFieldHeight()));
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
-        int cell_width = this.getWidth() / game.getFieldWidth();
-        int cell_height = this.getHeight() / game.getFieldHeight();
-        int cell_border = (cell_width > cell_height) ? (cell_height) : (cell_width);
-
         g.setColor(new Color(240,240,240));
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
@@ -27,8 +31,7 @@ public class Canvas extends JPanel {
                 if (game.isUnitAlive(x, y)) {
                     g.setColor(new Color(33, 176, 77));
                     g.fillRect(x * cell_border, y * cell_border, cell_border - 2, cell_border - 2);
-                }
-                else {
+                } else {
                     g.setColor(Color.WHITE);
                     g.fillRect(x * cell_border, y * cell_border, cell_border - 2, cell_border - 2);
                 }
