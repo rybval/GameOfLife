@@ -7,17 +7,18 @@ import java.awt.*;
 
 public class Canvas extends JPanel {
     private Game game;
-    int cell_border;
+    private int cell_border;
 
     Canvas(Game game) {
         this.game = game;
-
     }
 
-    public void updatePreferredSize() {
+    void updatePreferredSize() {
         int cell_width = this.getParent().getWidth() / game.getFieldWidth();
         int cell_height = this.getParent().getHeight() / game.getFieldHeight();
+
         cell_border = (cell_width > cell_height) ? (cell_height) : (cell_width);
+
         this.setPreferredSize(new Dimension(cell_border * game.getFieldWidth(), cell_border * game.getFieldHeight()));
     }
 

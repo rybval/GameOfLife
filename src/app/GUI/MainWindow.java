@@ -3,7 +3,6 @@ package app.GUI;
 import app.logic.Game;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 public class MainWindow extends JFrame {
@@ -28,8 +27,6 @@ public class MainWindow extends JFrame {
 
         pack();
         setVisible(true);
-        canvas.addMouseListener(new MouseAdapter() {
-        });
     }
 
     private void UpdateCanvas() {
@@ -46,7 +43,7 @@ public class MainWindow extends JFrame {
     }
 
     private void createListeners() {
-        // Event on window closing
+        // call onQuit() when window closing
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -55,7 +52,7 @@ public class MainWindow extends JFrame {
             }
         });
 
-        // Button MouseClick listener
+        // listeners for buttons
         button_step.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -99,7 +96,7 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-
+        
         slider_speed.addChangeListener(e -> {
             JSlider source = (JSlider) e.getSource();
             update_timer.setDelay(source.getValue());
