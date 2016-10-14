@@ -16,8 +16,7 @@ public class Game {
 
     public boolean doStep() {
         previous_generation = next_generation.clone();
-
-        Set<Unit> units_for_update = getAllUnitsForUpdate();
+        Set<Unit> units_for_update = getUnitsForUpdate();
 
         for (Unit unit : units_for_update) {
             int alive_neighbours = previous_generation.getUnit(unit.getX(),unit.getY()).getAliveNeighboursCount();
@@ -41,15 +40,13 @@ public class Game {
 
     public void bornUnit(int x, int y) {
         Unit unit_tmp = next_generation.getUnit(x, y);
-        unit_tmp.setAlive(true);
-        updateNeighbours(x, y, true);
+        unit_tmp.bornUnit();
         alive_units_set.add(unit_tmp);
     }
 
     public void killUnit(int x, int y) {
         Unit unit_tmp = next_generation.getUnit(x, y);
-        unit_tmp.setAlive(false);
-        updateNeighbours(x, y, false);
+        unit_tmp.killUnit();
         alive_units_set.remove(unit_tmp);
     }
 
@@ -61,28 +58,7 @@ public class Game {
         return next_generation.getHeight();
     }
 
-    private void updateNeighbours(int x, int y, boolean alive) {
-        for (int i = -1; i <= 1; i++) {
-            if (alive) {
-                next_generation.getUnit(x + i, y + 1).neighbourBorn();
-                next_generation.getUnit(x + i, y - 1).neighbourBorn();
-            } else {
-                next_generation.getUnit(x + i, y + 1).neighbourDied();
-                next_generation.getUnit(x + i, y - 1).neighbourDied();
-            }
-        }
-
-        if (alive) {
-            next_generation.getUnit(x - 1, y).neighbourBorn();
-            next_generation.getUnit(x + 1, y).neighbourBorn();
-        }
-        else {
-            next_generation.getUnit(x - 1, y).neighbourDied();
-            next_generation.getUnit(x + 1, y).neighbourDied();
-        }
-    }
-
-    private Set<Unit> getAllUnitsForUpdate() {
+    private Set<Unit> getUnitsForUpdate() {
         Set<Unit> result = new HashSet<>(alive_units_set);
         for (Unit tmp_unit : alive_units_set) {
             for (int i = -1; i <= 1; i++) {
