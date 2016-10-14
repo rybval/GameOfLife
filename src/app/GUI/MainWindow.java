@@ -116,5 +116,6 @@ public class MainWindow extends JFrame {
 
     private void createUIComponents() {
         canvas = new Canvas(game);
+        slider_speed = new JSlider(JSlider.HORIZONTAL, 100, 1000, 750);
     }
 }
