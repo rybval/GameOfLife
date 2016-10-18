@@ -1,9 +1,9 @@
 package app.logic;
 
 class Field {
-    private Unit[][] field;
-    private int width;
-    private int height;
+    private final Unit[][] field;
+    private final int width;
+    private final int height;
 
     // Constructors
     Field(int width, int height) {
@@ -44,13 +44,15 @@ class Field {
         return field_clone;
     }
 
-    boolean isEquals(Field obj) {
+    int getHash() {
+        int result = 0;
+        int counter = 0;
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (field[x][y].isAlive() != obj.field[x][y].isAlive())
-                    return false;
+                int tmp_result = Integer.rotateLeft(field[x][y].getHash(), counter++);
+                result += tmp_result;
             }
         }
-        return true;
+        return result;
     }
 }

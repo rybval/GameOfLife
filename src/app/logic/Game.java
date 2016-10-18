@@ -7,19 +7,24 @@ public class Game {
     private Field next_generation;
     private Field previous_generation;
     private Set<Unit> alive_units_set;
+    private Set<Integer> generation_hash;
 
     public Game(int width, int height) {
         next_generation = new Field(width, height);
         previous_generation = new Field(width, height);
         alive_units_set = new HashSet<>();
+        generation_hash = new HashSet<>();
     }
 
     public boolean doStep() {
         previous_generation = next_generation.clone();
         Set<Unit> units_for_update = getUnitsForUpdate();
+        if (!generation_hash.add(next_generation.getHash())) {
+            return false; // if next generation duplicated one of previous generations game ends
+        }
 
         for (Unit unit : units_for_update) {
-            int alive_neighbours = previous_generation.getUnit(unit.getX(),unit.getY()).getAliveNeighboursCount();
+            int alive_neighbours = previous_generation.getUnit(unit.getX(), unit.getY()).getAliveNeighboursCount();
             if (unit.isAlive()) {
                 if (alive_neighbours < 2 || alive_neighbours > 3) {
                     killUnit(unit.getX(), unit.getY());
@@ -31,7 +36,7 @@ public class Game {
             }
         }
 
-        return !(previous_generation.isEquals(next_generation) || alive_units_set.size() == 0);
+        return !(alive_units_set.size() == 0); // if there are no alive units the game ends
     }
 
     public boolean isUnitAlive(int x, int y) {
@@ -71,5 +76,14 @@ public class Game {
         }
 
         return result;
+    }
+
+    public void reset() {
+        int width = next_generation.getWidth();
+        int height = next_generation.getHeight();
+        next_generation = new Field(width, height);
+        previous_generation = new Field(width, height);
+        alive_units_set = new HashSet<>();
+        generation_hash = new HashSet<>();
     }
 }

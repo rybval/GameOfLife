@@ -2,8 +2,8 @@ package app.logic;
 
 class Unit {
     private boolean alive;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private int alive_neighbours;
     private Field field;
 
@@ -91,5 +91,9 @@ class Unit {
         Unit unit_clone = this.clone();
         unit_clone.field = field;
         return unit_clone;
+    }
+
+    int getHash() {
+        return 5 * x + 7 * y + ((alive) ? (11) : (0));
     }
 }

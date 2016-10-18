@@ -6,15 +6,15 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class MainWindow extends JFrame {
-    private Game game;
+    private final Game game;
     private JPanel content_panel;
-    private JButton button_step;
+    private JButton button_reset;
     private Canvas canvas;
     private JButton button_start;
     private JSlider slider_speed;
     private JPanel canvas_panel;
 
-    private Timer update_timer;
+    private final Timer update_timer;
     private boolean game_started;
 
     public MainWindow(Game game) {
@@ -54,10 +54,11 @@ public class MainWindow extends JFrame {
         });
 
         // listeners for buttons
-        button_step.addMouseListener(new MouseAdapter() {
+        button_reset.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                game.reset();
                 UpdateCanvas();
             }
         });

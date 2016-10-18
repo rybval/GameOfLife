@@ -6,7 +6,7 @@ import app.logic.Game;
 
 import javax.swing.*;
 
-public class Launcher {
+class Launcher {
 
     public static void main(String[] args) {
         // Set system-like look
@@ -25,6 +25,6 @@ public class Launcher {
 
         Game game = dialog.getGame();
 
-        MainWindow main_window = new MainWindow(game);
+        @SuppressWarnings("UnusedAssignment") MainWindow main_window = new MainWindow(game);
     }
 }

@@ -5,8 +5,8 @@ import app.logic.Game;
 import javax.swing.*;
 import java.awt.*;
 
-public class Canvas extends JPanel {
-    private Game game;
+class Canvas extends JPanel {
+    private final Game game;
     private int cell_border;
 
     Canvas(Game game) {
