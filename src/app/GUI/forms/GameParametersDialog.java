@@ -1,4 +1,4 @@
-package app.GUI;
+package app.GUI.forms;
 
 import app.logic.Game;
 

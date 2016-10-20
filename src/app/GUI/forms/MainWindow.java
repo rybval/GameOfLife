@@ -1,14 +1,19 @@
-package app.GUI;
+package app.GUI.forms;
 
+import app.GUI.components.Canvas;
+import app.GUI.components.PlayPauseButton;
 import app.logic.Game;
 
 import javax.swing.*;
 import java.awt.event.*;
 
+import static app.GUI.components.PlayPauseButton.ButtonState.BUTTON_PAUSE;
+import static app.GUI.components.PlayPauseButton.ButtonState.BUTTON_PLAY;
+
 public class MainWindow extends JFrame {
     private final Game game;
     private JPanel content_panel;
-    private JButton button_reset;
+    private JButton button_stop;
     private Canvas canvas;
     private JButton button_start;
     private JSlider slider_speed;
@@ -27,14 +32,13 @@ public class MainWindow extends JFrame {
         createListeners();
 
         pack();
-        setVisible(true);
     }
 
     private void UpdateCanvas() {
         if (!game.doStep()) {
             update_timer.stop();
             game_started = false;
-            button_start.setText("Start");
+            ((PlayPauseButton) button_start).setState(BUTTON_PLAY);
         }
         canvas.repaint();
     }
@@ -54,7 +58,7 @@ public class MainWindow extends JFrame {
         });
 
         // listeners for buttons
-        button_reset.addMouseListener(new MouseAdapter() {
+        button_stop.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -70,11 +74,11 @@ public class MainWindow extends JFrame {
                 if (!game_started) {
                     update_timer.start();
                     game_started = true;
-                    button_start.setText("Stop");
+                    ((PlayPauseButton) button_start).setState(BUTTON_PAUSE);
                 } else {
                     update_timer.stop();
                     game_started = false;
-                    button_start.setText("Start");
+                    ((PlayPauseButton) button_start).setState(BUTTON_PLAY);
                 }
             }
         });
@@ -118,5 +122,8 @@ public class MainWindow extends JFrame {
     private void createUIComponents() {
         canvas = new Canvas(game);
         slider_speed = new JSlider(JSlider.HORIZONTAL, 100, 1000, 750);
+
+        button_start = new PlayPauseButton("res/play.png", "res/pause.png");
+        button_stop = new JButton(new ImageIcon(ClassLoader.getSystemResource("res/stop.png")));
     }
 }

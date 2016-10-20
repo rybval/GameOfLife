@@ -1,19 +1,19 @@
-package app.GUI;
+package app.GUI.components;
 
 import app.logic.Game;
 
 import javax.swing.*;
 import java.awt.*;
 
-class Canvas extends JPanel {
+public class Canvas extends JPanel {
     private final Game game;
     private int cell_border;
 
-    Canvas(Game game) {
+    public Canvas(Game game) {
         this.game = game;
     }
 
-    void updatePreferredSize() {
+    public void updatePreferredSize() {
         int cell_width = this.getParent().getWidth() / game.getFieldWidth();
         int cell_height = this.getParent().getHeight() / game.getFieldHeight();
 

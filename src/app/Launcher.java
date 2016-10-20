@@ -1,7 +1,7 @@
 package app;
 
-import app.GUI.GameParametersDialog;
-import app.GUI.MainWindow;
+import app.GUI.forms.GameParametersDialog;
+import app.GUI.forms.MainWindow;
 import app.logic.Game;
 
 import javax.swing.*;
@@ -25,6 +25,7 @@ class Launcher {
 
         Game game = dialog.getGame();
 
-        @SuppressWarnings("UnusedAssignment") MainWindow main_window = new MainWindow(game);
+        MainWindow main_window = new MainWindow(game);
+        main_window.setVisible(true);
     }
 }
