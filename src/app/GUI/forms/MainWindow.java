@@ -83,9 +83,9 @@ public class MainWindow extends JFrame {
             }
         });
 
-        canvas.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
+        MouseAdapter canvasMouseAdapter = new MouseAdapter() {
+
+            void mouseActionOverCell(MouseEvent e){
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     super.mouseClicked(e);
                     int cell_width = canvas.getWidth() / game.getFieldWidth();
@@ -101,7 +101,25 @@ public class MainWindow extends JFrame {
                     canvas.repaint();
                 }
             }
-        });
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseActionOverCell(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                mouseActionOverCell(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                mouseActionOverCell(e);
+            }
+        };
+
+        canvas.addMouseListener(canvasMouseAdapter);
+        canvas.addMouseMotionListener(canvasMouseAdapter);
 
         slider_speed.addChangeListener(e -> {
             JSlider source = (JSlider) e.getSource();
