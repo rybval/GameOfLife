@@ -13,9 +13,10 @@ import static app.GUI.components.PlayPauseButton.ButtonState.BUTTON_PLAY;
 public class MainWindow extends JFrame {
     private final Game game;
     private JPanel content_panel;
+    private JButton button_step;
     private JButton button_stop;
-    private Canvas canvas;
     private JButton button_start;
+    private Canvas canvas;
     private JSlider slider_speed;
     private JPanel canvas_panel;
 
@@ -58,6 +59,15 @@ public class MainWindow extends JFrame {
         });
 
         // listeners for buttons
+        button_step.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                game.doStep();
+                canvas.repaint();
+            }
+        });
+
         button_stop.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -140,5 +150,6 @@ public class MainWindow extends JFrame {
 
         button_start = new PlayPauseButton("res/play.png", "res/pause.png");
         button_stop = new JButton(new ImageIcon(ClassLoader.getSystemResource("res/stop.png")));
+        button_step = new JButton(new ImageIcon(ClassLoader.getSystemResource("res/step.png")));
     }
 }
