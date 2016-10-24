@@ -93,9 +93,9 @@ public class MainWindow extends JFrame {
                 int x = e.getX() / cell_border;
                 int y = e.getY() / cell_border;
 
-                if (SwingUtilities.isLeftMouseButton(e)) {
+                if (SwingUtilities.isLeftMouseButton(e) && !game.isUnitAlive(x, y)) {
                     game.bornUnit(x, y);
-                } else if (SwingUtilities.isRightMouseButton(e)) {
+                } else if (SwingUtilities.isRightMouseButton(e) && game.isUnitAlive(x, y)) {
                     game.killUnit(x, y);
                 }
 
@@ -110,6 +110,7 @@ public class MainWindow extends JFrame {
 
             @Override
             public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
                 mouseActionOverCell(e);
             }
         };
