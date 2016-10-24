@@ -83,25 +83,40 @@ public class MainWindow extends JFrame {
             }
         });
 
-        canvas.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    super.mouseClicked(e);
-                    int cell_width = canvas.getWidth() / game.getFieldWidth();
-                    int cell_height = canvas.getHeight() / game.getFieldHeight();
-                    int cell_border = (cell_width > cell_height) ? (cell_height) : (cell_width);
+        MouseAdapter canvasMouseAdapter = new MouseAdapter() {
 
-                    int x = e.getX() / cell_border;
-                    int y = e.getY() / cell_border;
-                    if (!game.isUnitAlive(x, y))
-                        game.bornUnit(x, y);
-                    else
-                        game.killUnit(x, y);
-                    canvas.repaint();
+            void mouseActionOverCell(MouseEvent e){
+                int cell_width = canvas.getWidth() / game.getFieldWidth();
+                int cell_height = canvas.getHeight() / game.getFieldHeight();
+                int cell_border = (cell_width > cell_height) ? (cell_height) : (cell_width);
+
+                int x = e.getX() / cell_border;
+                int y = e.getY() / cell_border;
+
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    game.bornUnit(x, y);
+                } else if (SwingUtilities.isRightMouseButton(e)) {
+                    game.killUnit(x, y);
                 }
+
+                canvas.repaint();
             }
-        });
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                mouseActionOverCell(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                mouseActionOverCell(e);
+            }
+        };
+
+        canvas.addMouseListener(canvasMouseAdapter);
+        canvas.addMouseMotionListener(canvasMouseAdapter);
 
         slider_speed.addChangeListener(e -> {
             JSlider source = (JSlider) e.getSource();

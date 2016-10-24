@@ -50,13 +50,13 @@ public class Game {
 
     public void bornUnit(int x, int y) {
         Unit unit_tmp = next_generation.getUnit(x, y);
-        unit_tmp.bornUnit();
+        unit_tmp.born();
         alive_units_set.add(unit_tmp);
     }
 
     public void killUnit(int x, int y) {
         Unit unit_tmp = next_generation.getUnit(x, y);
-        unit_tmp.killUnit();
+        unit_tmp.kill();
         alive_units_set.remove(unit_tmp);
     }
 

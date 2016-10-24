@@ -39,14 +39,18 @@ class Unit {
         this.alive = alive;
     }
 
-    void killUnit() {
-        setAlive(KILL_UNIT);
-        notifyNeighbours(KILL_UNIT);
+    void kill() {
+        if (alive) {
+            setAlive(KILL_UNIT);
+            notifyNeighbours(KILL_UNIT);
+        }
     }
 
-    void bornUnit() {
-        setAlive(BORN_UNIT);
-        notifyNeighbours(BORN_UNIT);
+    void born() {
+        if (!alive) {
+            setAlive(BORN_UNIT);
+            notifyNeighbours(BORN_UNIT);
+        }
     }
 
     // Utility methods
