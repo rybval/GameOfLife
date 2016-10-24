@@ -17,6 +17,7 @@ public class Game {
     }
 
     public boolean doStep() {
+        visited_map.OR(next_generation);
         previous_generation = next_generation.clone();
         Set<Unit> units_for_update = getUnitsForUpdate();
         if (!generation_hash.add(next_generation.getHash())) {
@@ -36,7 +37,6 @@ public class Game {
             }
         }
 
-        visited_map.OR(next_generation);
         return !(next_generation.getAliveUnitsCount() == 0); // if there are no alive units the game ends
     }
 
