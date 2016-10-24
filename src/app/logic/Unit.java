@@ -40,13 +40,17 @@ class Unit {
     }
 
     void killUnit() {
-        setAlive(KILL_UNIT);
-        notifyNeighbours(KILL_UNIT);
+        if (alive) {
+            setAlive(KILL_UNIT);
+            notifyNeighbours(KILL_UNIT);
+        }
     }
 
     void bornUnit() {
-        setAlive(BORN_UNIT);
-        notifyNeighbours(BORN_UNIT);
+        if (!alive) {
+            setAlive(BORN_UNIT);
+            notifyNeighbours(BORN_UNIT);
+        }
     }
 
     // Utility methods
