@@ -93,9 +93,9 @@ public class MainWindow extends JFrame {
                 int x = e.getX() / cell_border;
                 int y = e.getY() / cell_border;
 
-                if (SwingUtilities.isLeftMouseButton(e) && !game.isUnitAlive(x, y)) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
                     game.bornUnit(x, y);
-                } else if (SwingUtilities.isRightMouseButton(e) && game.isUnitAlive(x, y)) {
+                } else if (SwingUtilities.isRightMouseButton(e)) {
                     game.killUnit(x, y);
                 }
 
