@@ -39,14 +39,14 @@ class Unit {
         this.alive = alive;
     }
 
-    void killUnit() {
+    void kill() {
         if (alive) {
             setAlive(KILL_UNIT);
             notifyNeighbours(KILL_UNIT);
         }
     }
 
-    void bornUnit() {
+    void born() {
         if (!alive) {
             setAlive(BORN_UNIT);
             notifyNeighbours(BORN_UNIT);
