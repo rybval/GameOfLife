@@ -6,6 +6,7 @@ import java.util.Set;
 public class Game {
     private Field next_generation;
     private Field previous_generation;
+    private Field visited_map;
     private Set<Unit> alive_units_set;
     private Set<Integer> generation_hash;
 
@@ -41,6 +42,10 @@ public class Game {
 
     public boolean isUnitAlive(int x, int y) {
         return next_generation.getUnit(x, y).isAlive();
+    }
+
+    public boolean isUnitWasAlive(int x, int y) {
+        return visited_map.getUnit(x, y).isAlive();
     }
 
     public void bornUnit(int x, int y) {
