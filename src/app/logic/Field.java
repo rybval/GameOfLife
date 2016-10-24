@@ -1,15 +1,21 @@
 package app.logic;
 
+import java.util.HashSet;
+import java.util.Set;
+
 class Field {
     private final Unit[][] field;
     private final int width;
     private final int height;
+    private Set<Unit> alive_units_set;
 
     // Constructors
     Field(int width, int height) {
         this.width = width;
         this.height = height;
         field = new Unit[width][height];
+
+        alive_units_set = new HashSet<>();
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -54,5 +60,28 @@ class Field {
             }
         }
         return result;
+    }
+
+    int getAliveUnitsCount() {
+        return alive_units_set.size();
+    }
+
+    Set<Unit> getAliveUnits() {
+        return alive_units_set;
+    }
+
+    void bornUnit(Unit unit) {
+        alive_units_set.add(unit);
+    }
+
+    void killUnit(Unit unit) {
+        alive_units_set.remove(unit);
+    }
+
+    void OR(Field another_field) {
+        for (Unit unit : another_field.getAliveUnits()) {
+            bornUnit(unit);
+            getUnit(unit.getX(), unit.getY()).born();
+        }
     }
 }
