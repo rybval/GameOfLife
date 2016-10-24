@@ -103,12 +103,7 @@ public class MainWindow extends JFrame {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-                mouseActionOverCell(e);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 mouseActionOverCell(e);
             }
 
