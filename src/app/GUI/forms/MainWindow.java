@@ -86,24 +86,25 @@ public class MainWindow extends JFrame {
         MouseAdapter canvasMouseAdapter = new MouseAdapter() {
 
             void mouseActionOverCell(MouseEvent e){
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    super.mouseClicked(e);
-                    int cell_width = canvas.getWidth() / game.getFieldWidth();
-                    int cell_height = canvas.getHeight() / game.getFieldHeight();
-                    int cell_border = (cell_width > cell_height) ? (cell_height) : (cell_width);
+                int cell_width = canvas.getWidth() / game.getFieldWidth();
+                int cell_height = canvas.getHeight() / game.getFieldHeight();
+                int cell_border = (cell_width > cell_height) ? (cell_height) : (cell_width);
 
-                    int x = e.getX() / cell_border;
-                    int y = e.getY() / cell_border;
-                    if (!game.isUnitAlive(x, y))
-                        game.bornUnit(x, y);
-                    else
-                        game.killUnit(x, y);
-                    canvas.repaint();
+                int x = e.getX() / cell_border;
+                int y = e.getY() / cell_border;
+
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    game.bornUnit(x, y);
+                } else if (SwingUtilities.isRightMouseButton(e)) {
+                    game.killUnit(x, y);
                 }
+
+                canvas.repaint();
             }
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 mouseActionOverCell(e);
             }
 
