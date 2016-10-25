@@ -89,5 +89,6 @@ public class Game {
         next_generation = new Field(width, height);
         previous_generation = new Field(width, height);
         generation_hash = new HashSet<>();
+        visited_map = new Field(width, height);
     }
 }
